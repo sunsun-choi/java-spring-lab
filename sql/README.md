@@ -70,7 +70,6 @@ wip: 닉네임 마스킹 로직 구현 중
         feature/nickname-masking
 
 ### 하루 마무리 기준
-
 하루 작업이 끝났을 때 변경사항이 있다면 다음을 확인한다.
 
 1. 변경한 파일을 확인한다.
@@ -217,6 +216,9 @@ MEMBER.USER_NO
 BOARD.BOARD_NO
 BOARD.USER_NO
 BOARD_REPLY.BOARD_NO
+
+제약조건명과 식별자 축약 규칙은
+Database Convention을 참고한다.
 
 ## 상태값 관리
 
