@@ -8,5 +8,17 @@
 </head>
 <body>
 
+    <div>
+        <div onclick="go('/board/list');">게시판 바로가기</div>
+    </div>
+
+
+    <script>
+        const cp = '${pageContext.request.contextPath}';
+
+        function go(path){
+            location.href = cp + path;
+        }
+    </script>
 </body>
 </html>

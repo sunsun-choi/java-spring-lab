@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.codelab.board.mapper.BoardMapper">
+
+	<!-- ==================== Board List ==================== -->
+	
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM BOARD B
+         WHERE B.STATUS = 'Y'
+           <if test="categoryNo != null">
+           AND B.CATEGORY_NO = #{categoryNo}
+           </if>
+	</select>
+
+	<select id="selectBoardList" parameterType="com.kh.code.lab.board.dto.BoardSearchCondition"
+	        resultType="com.kh.code.lab.board.dto.BoardListItemDto">
+        SELECT *
+          FROM (
+		        SELECT BOARD.*, ROWNUM AS RNUM
+		          FROM (
+				        SELECT B.BOARD_NO			AS boardNo
+				        	 , BC.CATEGORY_NO		AS categoryNo
+				        	 , B.TITLE				AS title
+				        	 , M.NICK_NAME			AS nickName
+				        	 , B.CREATED_AT			AS createdAt
+				        	 , COUNT(BR.REPLY_NO)	AS replyCount
+				        	 
+				          FROM BOARD B
+				          JOIN MEMBER 				M   ON (M.MEMBER_NO = B.MEMBER_NO)
+				          LEFT JOIN BOARD_CATEGORY	BC  ON (BC.CATEGORY_NO = B.CATEGORY_NO)
+				          LEFT JOIN BOARD_REPLY		BR  ON (BR.BOARD_NO = B.BOARD_NO) AND BR.STATUS = 'Y'
+				          
+				         WHERE B.STATUS = 'Y'
+				           <if test="categoryNo != null">
+				           AND B.CATEGORY_NO = #{categoryNo}
+				           </if>
+				         GROUP BY B.BOARD_NO, M.MEMBER_NO, BC.CATEGORY_NO, B.TITLE
+				         		  , M.NICK_NAME, B.CREATED_AT
+				         ORDER BY B.CREATED_AT DESC, B.BOARD_NO DESC
+				        ) BOARD
+				  WHERE ROWNUM &lt;= #{pageQuery.endRow}
+		         )
+		 WHERE RNUM >= #{pageQuery.startRow}
+		 ORDER BY RNUM ASC
+    </select>
+
+</mapper>
+	
