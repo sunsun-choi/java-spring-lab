@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.code.lab.board.dto.BoardListResponseDto;
 import com.kh.code.lab.board.service.BoardService;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
 
 	
 	//==[필드부]===========
-	
-	@Autowired
-	private BoardService bs;
+	private final BoardService bs;
 	
 	//==[메소드부]==========
 	

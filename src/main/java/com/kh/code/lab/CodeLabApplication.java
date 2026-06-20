@@ -8,6 +8,10 @@ public class CodeLabApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CodeLabApplication.class, args);
+		
+		
+		
+		
 	}
 
 }
