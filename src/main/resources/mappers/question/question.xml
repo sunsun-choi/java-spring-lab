@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.code.lab.question.mapper.QuestionMapper">
+
+	<!-- ==================== Question Solve ==================== -->
+	
+	<select id="selectRandomQuestionExcept" resultType="com.kh.code.lab.question.dto.RandomQuestionDto">
+		SELECT *
+		  FROM (
+				SELECT Q.QUESTION_NO	AS questionNo
+					 , Q.SUBJECT		AS subject
+					 , Q.KEYWORD		AS keyword
+				  FROM QUESTION Q
+				 WHERE Q.QUESTION_NO != #{currentQuestionNo}
+				   AND EXISTS (
+						SELECT 1
+						  FROM ANSWER A
+						 WHERE A.QUESTION_NO = Q.QUESTION_NO
+				   )
+				 ORDER BY DBMS_RANDOM.VALUE
+			   )
+		 WHERE ROWNUM = 1
+	</select>
+	
+	<select id="selectRandomQuestion" resultType="com.kh.code.lab.question.dto.RandomQuestionDto">
+		SELECT *
+		  FROM (
+				SELECT Q.QUESTION_NO	AS questionNo
+					 , Q.SUBJECT		AS subject
+					 , Q.KEYWORD		AS keyword
+				  FROM QUESTION Q
+				 WHERE EXISTS (
+						SELECT 1
+						  FROM ANSWER A
+						 WHERE A.QUESTION_NO = Q.QUESTION_NO
+				   )
+				 ORDER BY DBMS_RANDOM.VALUE
+			   )
+		 WHERE ROWNUM = 1
+	</select>
+	
+	<select id="selectAnswerList" resultType="string">
+		SELECT A.ANSWER_CONTENT
+		  FROM ANSWER A
+		 WHERE A.QUESTION_NO = #{questionNo}
+		 ORDER BY A.ANSWER_NO ASC
+	</select>
+	
+	<insert id="insertAttempt" parameterType="com.kh.code.lab.question.vo.AttemptVo">
+		INSERT INTO ATTEMPT (
+			   ATTEMPT_NO
+			 , QUESTION_NO
+			 , INPUT_ANSWER
+			 , IS_CORRECT
+			 , CREATED_AT
+		) VALUES (
+			   SEQ_ATTEMPT.NEXTVAL
+			 , #{questionNo}
+			 , #{inputAnswer}
+			 , #{isCorrect}
+			 , SYSDATE
+		)
+	</insert>
+	
+	<select id="selectWrongAnswerList" resultType="string">
+		SELECT DISTINCT A.INPUT_ANSWER
+		  FROM ATTEMPT A
+		 WHERE A.QUESTION_NO = #{questionNo}
+		   AND A.IS_CORRECT = 'N'
+		 ORDER BY A.INPUT_ANSWER ASC
+	</select>
+
+</mapper>

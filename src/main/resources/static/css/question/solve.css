@@ -1,0 +1,157 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	color: #222;
+	background: #f5f6f8;
+}
+
+.question-main {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 32px 16px;
+}
+
+.question-panel {
+	width: min(100%, 640px);
+	padding: 32px;
+	border: 1px solid #e1e4e8;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.question-panel--center {
+	text-align: center;
+}
+
+.question-header {
+	margin-bottom: 24px;
+}
+
+.subject-text {
+	margin: 0 0 8px;
+	font-size: 14px;
+	color: #667085;
+}
+
+h1 {
+	margin: 0;
+	font-size: 24px;
+	line-height: 1.4;
+	font-weight: 700;
+}
+
+.answer-form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+#inputAnswer {
+	width: 100%;
+	height: 44px;
+	padding: 0 12px;
+	border: 1px solid #cfd6dd;
+	border-radius: 6px;
+	font-size: 16px;
+}
+
+#inputAnswer:disabled {
+	background: #f0f2f4;
+	color: #667085;
+}
+
+.button-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+button {
+	min-height: 40px;
+	padding: 0 16px;
+	border-radius: 6px;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: not-allowed;
+	opacity: 0.55;
+}
+
+.primary-btn {
+	border: 1px solid #2563eb;
+	color: #fff;
+	background: #2563eb;
+}
+
+.secondary-btn {
+	display: none;
+	border: 1px solid #cfd6dd;
+	color: #344054;
+	background: #fff;
+}
+
+.result-message {
+	min-height: 22px;
+	margin: 18px 0 0;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.result-message--correct {
+	color: #15803d;
+}
+
+.result-message--wrong {
+	color: #b42318;
+}
+
+.wrong-answer-box {
+	display: none;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #7a828a;
+}
+
+.wrong-answer-box span {
+	font-weight: 700;
+}
+
+.answer-box {
+	display: none;
+	margin-top: 12px;
+	padding: 12px;
+	border-radius: 6px;
+	background: #f0f4f8;
+	color: #344054;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.answer-box strong {
+	display: block;
+	margin-bottom: 4px;
+}
+
+@media (max-width: 520px) {
+	.question-panel {
+		padding: 24px 18px;
+	}
+	
+	h1 {
+		font-size: 21px;
+	}
+	
+	button {
+		width: 100%;
+	}
+}
