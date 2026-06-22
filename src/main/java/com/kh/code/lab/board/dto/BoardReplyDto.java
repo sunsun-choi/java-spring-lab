@@ -1,4 +1,4 @@
-package com.kh.code.lab.board.vo;
+package com.kh.code.lab.board.dto;
 
 import java.time.LocalDateTime;
 
@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BoardReplyVo {
+public class BoardReplyDto {
 	
 	private long replyNo;				//	REPLY_NO
 	private long boardNo;				//	BOARD_NO
 	private long memberNo;				//	MEMBER_NO
 	private String replyContent;		//	REPLY_CONTENT
 	private LocalDateTime createdAt;	//	CREATED_AT
-	private LocalDateTime updatedAt;	//	UPDATED_AT
-	private String Status;				//	STATUS
+	private boolean  updated;			//  UPDATED
 	
 }

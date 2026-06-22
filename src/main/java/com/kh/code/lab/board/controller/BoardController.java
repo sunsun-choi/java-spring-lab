@@ -43,7 +43,11 @@ public class BoardController {
 	}
 	
 	
-	
+	public String selectBoardDetail() {
+		
+		
+		return "";
+	}
 	
 	
 }
